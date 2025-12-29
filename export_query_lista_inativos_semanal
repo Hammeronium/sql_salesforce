@@ -1,0 +1,3 @@
+SELECT Id, Subject, Owner.Name, Description, AccountId, Account.Id, Account.Name
+FROM Task
+WHERE Subject = 'Recuperação de Conta'
