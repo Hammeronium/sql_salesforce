@@ -1,0 +1,19 @@
+SELECT id, OrderNumber, Account.CA_CodigoCliente__c, Pricebook2.CA_IdExterno__c, 
+                   EffectiveDate, EndDate, Status, Description, Type, BillingStreet, 
+                   BillingCity, BillingPostalCode, BillingStateCode, BillingCountryCode, 
+                   ShippingStreet, ShippingCity, ShippingState, ShippingPostalCode, 
+                   ShippingStateCode, ShippingCountryCode, TotalAmount, CA_ValorPedidoNF__c, 
+                   CA_IdExterno__c, CA_Filial__r.CA_IdExterno__c, 
+                   CA_CondicaoPagamento__r.CA_IdExterno__c, CA_TipoFrete__c, 
+                   CA_ObservacoesNotaFiscal__c, CA_DescontoNF__c, CA_DescontoNFMoeda__c, 
+                   CA_Transportadora__r.CA_Codigo__c, CA_StatusAprovocaoCredito__c, 
+                   CA_ObservacoesCredito__c, CA_CodigoVendedor__c, CA_ValorFrete__c, 
+                   CA_Reserva__c, CA_IdExternoPedidoOrigem__c, LastModifiedDate, SystemModstamp,
+                   (SELECT id, Product2.CA_IdExterno__c, CA_NumeroOrdemCompra__c, 
+                           CA_SequenciaItem__c, Quantity, UnitPrice, TotalPrice, 
+                           CA_IdExterno__c, CA_Desconto__c, CA_DescontoProporcional__c, 
+                           CA_IdExternoProdutoPedidoOrigem__c, CA_QtdDisponivel__c, 
+                           LastModifiedDate, SystemModstamp FROM OrderItems)
+            FROM Order 
+            WHERE (Status = 'Aguardando Integracao' AND (CA_IdExterno__c = NULL OR CA_IdExterno__c = ''))
+				  OR (EnviarERP__c = TRUE)
